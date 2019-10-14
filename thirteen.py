@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import re
 import os
+import json
 # 获取牌型桶
 def getBucket(arr_card):
     # 创建数组
@@ -217,8 +218,18 @@ def judge5(_post, _pai, card):
                                     break
                     else:
                         op = 1
-                        k = 0
+                        k=0
                         for i in range(14, 2,-1):
+                            for j in range(1, 5):
+                                if cards_[j][i] != 0:
+                                    post1.append(i * 4 + j-1)
+                                    left.remove(i * 4 + j-1)
+                                    cards_[j][i] = 0
+                                    k=k+1
+                                    break
+                            if k==1:
+                                break
+                        for i in range(2, 15):
                             for j in range(1, 5):
                                 if cards_[j][i] != 0:
                                     post1.append(i * 4 + j-1)
@@ -304,6 +315,39 @@ def judge3(_post1, _post2, _pai, card, ty1, ty2):
         chu2.append(left[0])
         del left[0]
     return chu3
+
+def zhuanCards(chu,much):
+    chui=[]
+    z=0
+    h=0#print(" ".join('%s' %id for id in list1))
+    for i in range(0,much):
+        z=int(chu[i]/4)
+        h=int(chu[i]%4+1)
+        if h==4:
+            chui.insert(0,"$")
+        elif h==3:
+            chui.insert(0,"&")
+        elif h==2:
+            chui.insert(0,"*")
+        elif h==1:
+            chui.insert(0,"#")
+        if z<11 :        #2-10
+            chui.insert(1,z)
+        elif z==11:
+            chui.insert(1,"J")
+        elif z==12:
+            chui.insert(1,"Q")
+        elif z==13:
+            chui.insert(1,"K")
+        elif z==14:
+            chui.insert(1,"A")
+        iii="".join('%s' %id for id in chui)
+        chu[i]=iii
+        chui.pop(1)
+        chui.pop(0)
+    return chu
+
+
 client="#A $7 &8 $3 *3 &10 *9 *Q $4 &4 #4 $5 &2"
 pai=[]
 for i in client:
@@ -336,6 +380,20 @@ chu3 = []
 chu1, pai, cards, op1 = judge5(chu1, pai, cards)
 chu2, pai, cards, op2 = judge5(chu2, pai, cards)
 chu3 = judge3(chu1, chu2, pai, cards, op1, op2)
-print(chu1)
-print(chu2)
-print(chu3)
+
+chu1=zhuanCards(chu1,5)
+chu2=zhuanCards(chu2,5)
+chu3=zhuanCards(chu3,3)
+df3=[]
+a3=" ".join(chu3)
+a2=" ".join(chu2)
+a1=" ".join(chu1)
+df3.insert(0,a3)
+df3.insert(1,a2)
+df3.insert(2,a1)
+
+dic1={}
+dic1["id"]="giaogiao"
+dic1["card"]=df3
+json1=json.dumps(dic1,ensure_ascii = False)
+print(json1)
