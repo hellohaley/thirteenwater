@@ -130,7 +130,10 @@ def get_history_details(game_id):
     return data
 
 if __name__=='__main__':
-    print(sign_in('111666','111666'))
+    print(register('gaga', '123'))
+    print(sign_in('gaga','123'))
+    list=[]
+    list=new_game_and_play()
     print(get_history_list(20,1))
 
 
