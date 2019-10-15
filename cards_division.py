@@ -327,7 +327,7 @@ def judge3(_post1, _post2, _pai, ty1, ty2):
         for i in range(2,15):
             if cards_[5][i] != 0:
                 for j in range(1, 5):
-                    if cards_[j][i] != 0and k!=3:
+                    if cards_[j][i] != 0 and k!=3:
                         chu3.append(j-1 + i * 4)
                         cards_[j][i] = 0
                         left.remove(j-1 + i * 4)
