@@ -302,7 +302,7 @@ def judge3(_post1, _post2, _pai, ty1, ty2):
                 cards_[i][dzp] = 0
                 left.remove(i - 1 + dzp * 4)
         dz = dz - 1
-        cards_[5][dzp] = dz
+        cards_[5][dzp] = 0
         for i in range(2, 15):
             if cards_[5][i] != 0:
                 for j in range(1, 5):
@@ -310,8 +310,8 @@ def judge3(_post1, _post2, _pai, ty1, ty2):
                         chu3.append(j - 1 + i * 4)
                         cards_[j][i] = 0
                         left.remove(j - 1 + i * 4)
-                cards_[5][i] = cards_[5][i] - 1
-                break
+                        cards_[5][i] = cards_[5][i] - 1
+                        break
         ty = 2
     # 仅剩散牌
     else:
@@ -465,5 +465,5 @@ def divide_cards(client):
     for i in chu3:
         chu.append(i)
     return chu
-# client="*2 *4 $3 #2 #J #Q #K &4 #3 #A #10 *8 $J"
-# print(divide_cards(client))
+#client="&2 *3 &7 #J $8 $3 $K *8 #2 &A #10 *Q #7"
+#print(divide_cards(client))
